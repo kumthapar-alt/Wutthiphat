@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - วุฒิพัฒน์ คำทา</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Kanit -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .page-transition { 
+            animation: fadeIn 0.8s ease-out forwards; 
+            opacity: 0; 
+            transform: translateY(15px); 
+        }
+        @keyframes fadeIn { 
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            } 
+        }
+
+        /* เอฟเฟกต์ลอยขึ้นลงนุ่มนวล */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        .animate-float {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        /* เอฟเฟกต์หนังสือลอยอิสระ */
+        @keyframes floatBook1 {
+            0%, 100% { transform: translateY(0px) rotate(-15deg); }
+            50% { transform: translateY(-20px) rotate(-5deg); }
+        }
+        @keyframes floatBook2 {
+            0%, 100% { transform: translateY(0px) rotate(15deg); }
+            50% { transform: translateY(-25px) rotate(25deg); }
+        }
+        @keyframes floatBook3 {
+            0%, 100% { transform: translateY(0px) rotate(5deg); }
+            50% { transform: translateY(-15px) rotate(-10deg); }
+        }
+        .animate-book-1 { animation: floatBook1 4s ease-in-out infinite; }
+        .animate-book-2 { animation: floatBook2 5s ease-in-out infinite 1s; }
+        .animate-book-3 { animation: floatBook3 6s ease-in-out infinite 0.5s; }
+
+        /* เอฟเฟกต์วงแหวนหมุน */
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow { animation: spinSlow 18s linear infinite; }
+
+        @keyframes spinReverse {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+        .animate-spin-reverse { animation: spinReverse 25s linear infinite; }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.4; transform: scale(0.95); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+        .animate-glow { animation: glowPulse 4s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-slate-900 text-white page-transition font-['Kanit'] selection:bg-purple-500/30 overflow-x-hidden">
+
+    <!-- 1. Navbar -->
+    <nav class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-sm border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#" class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+                    Wutthiphat
+                </a>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="text-slate-300 hover:text-white transition">หน้าแรก</a>
+                    <a href="#about" class="text-slate-300 hover:text-white transition">ประวัติส่วนตัว</a>
+                    <a href="#projects" class="text-slate-300 hover:text-white transition">ผลงาน</a>
+                    <a href="#contact" class="text-slate-300 hover:text-white transition">ติดต่อ</a>
+                </div>
+                <!-- ปุ่ม Hamburger สำหรับ Mobile -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-slate-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-800 border-b border-slate-700">
+            <div class="px-4 pt-2 pb-4 space-y-2 flex flex-col">
+                <a href="#home" class="mobile-link text-slate-300 hover:text-white hover:bg-slate-700 px-3 py-2 rounded-md transition">หน้าแรก</a>
+                <a href="#about" class="mobile-link text-slate-300 hover:text-white hover:bg-slate-700 px-3 py-2 rounded-md transition">ประวัติส่วนตัว</a>
+                <a href="#projects" class="mobile-link text-slate-300 hover:text-white hover:bg-slate-700 px-3 py-2 rounded-md transition">ผลงาน</a>
+                <a href="#contact" class="mobile-link text-slate-300 hover:text-white hover:bg-slate-700 px-3 py-2 rounded-md transition">ติดต่อ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section -->
+    <section id="home" class="min-h-[92vh] flex items-center justify-center pt-12 pb-16 px-4 relative">
+        <div class="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center gap-12 lg:gap-16">
+            <div class="w-full md:w-1/2 text-center md:text-left z-20">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-slate-800 text-purple-400 text-sm font-medium mb-6 border border-slate-700">
+                    ประวัติส่วนตัว & ผลงาน
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+                    สวัสดีครับ ผม <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">วุฒิพัฒน์ คำทา</span>
+                </h1>
+                <h2 class="text-xl md:text-2xl text-slate-300 mb-6 font-light">
+                    นักเรียนสายวิทย์-คณิต ที่หลงใหลในเทคโนโลยีและหุ่นยนต์
+                </h2>
+                <p class="text-slate-400 mb-8 leading-relaxed max-w-lg mx-auto md:mx-0">
+                    ผมมีความมุ่งมั่นในการพัฒนาทักษะด้านวิทยาศาสตร์และเทคโนโลยี พร้อมทั้งมีประสบการณ์ในการทำโครงงานและเข้าร่วมกิจกรรมทางวิชาการต่าง ๆ ที่ช่วยเสริมสร้างความรู้และทักษะที่จำเป็นสำหรับการเรียนต่อในระดับมหาวิทยาลัย
+                </p>
+                <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                    <a href="#projects" class="px-8 py-3 rounded-full bg-purple-600 hover:bg-purple-500 text-white font-medium transition-all duration-300 shadow-[0_0_15px_rgba(139,92,246,0.4)] hover:shadow-[0_0_25px_rgba(139,92,246,0.6)] transform hover:-translate-y-1">
+                        ดูผลงานของผม
+                    </a>
+                </div>
+            </div>
+            
+            <!-- ส่วนรูปโปรไฟล์และเอฟเฟกต์ -->
+            <div class="w-full md:w-1/2 flex justify-center items-center relative mt-12 md:mt-0">
+                <div class="relative w-64 h-64 sm:w-80 sm:h-80 md:w-[380px] md:h-[380px] flex items-center justify-center animate-float">
+                    <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-600 via-purple-600 to-cyan-400 blur-3xl animate-glow z-0 opacity-70"></div>
+                    <div class="absolute -inset-6 rounded-full border-2 border-dashed border-blue-400/60 animate-spin-slow z-0"></div>
+                    <div class="absolute -inset-1 rounded-full border-2 border-purple-400/50 border-t-cyan-400 border-b-purple-500 animate-spin-reverse z-0"></div>
+
+                    <!-- หนังสือลอย -->
+                    <div class="absolute top-8 -left-6 md:-left-12 z-30 animate-book-1 text-4xl md:text-5xl text-blue-400 drop-shadow-[0_0_15px_rgba(96,165,250,0.8)]"><i class="fas fa-book"></i></div>
+                    <div class="absolute bottom-12 -right-4 md:-right-8 z-30 animate-book-2 text-5xl md:text-6xl text-purple-400 drop-shadow-[0_0_15px_rgba(192,132,252,0.8)]"><i class="fas fa-book-open"></i></div>
+                    <div class="absolute top-1/4 -right-8 md:-right-12 z-30 animate-book-3 text-3xl md:text-4xl text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.8)]"><i class="fas fa-book-reader"></i></div>
+
+                    <!-- รูปโปรไฟล์บุคคล -->
+                    <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574424710157050026/-removebg-preview.png?ex=6b0598c6&is=6b044746&hm=23df1fa9c8f1e9986c5263e67bce1b15c0330c11f3905287a4255c99eecdbf2c" alt="รูปโปรไฟล์ วุฒิพัฒน์ คำทา" class="relative z-20 w-full h-full object-contain scale-[1.35] md:scale-[1.6] drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] origin-bottom pointer-events-none -translate-y-4">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. About Section -->
+    <section id="about" class="py-12 md:py-20 bg-slate-800/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 md:mb-12">
+                <h2 class="text-3xl font-bold mb-2">เกี่ยวกับฉัน</h2>
+                <div class="w-16 h-1 bg-purple-500 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+                <div class="bg-slate-800 p-6 md:p-8 rounded-2xl border border-slate-700">
+                    <h3 class="text-2xl font-semibold mb-6 flex items-center text-blue-400">
+                        <i class="fas fa-graduation-cap mr-3"></i> ประวัติการศึกษา
+                    </h3>
+                    <div class="space-y-6">
+                        <div class="relative pl-6 border-l-2 border-slate-600">
+                            <div class="absolute w-3 h-3 bg-blue-500 rounded-full -left-[7px] top-1.5"></div>
+                            <h4 class="text-lg font-medium text-white">มัธยมศึกษาตอนปลาย (ม.4 - ม.6)</h4>
+                            <p class="text-slate-400 text-sm mb-1">โรงเรียน หนองบัว</p>
+                            <p class="text-slate-300 mt-2">สายการเรียน: ห้องเรียนพิเศษ วิทยาศาสตร์-คณิตศาสตร์</p>
+                        </div>
+                        <div class="relative pl-6 border-l-2 border-slate-600">
+                            <div class="absolute w-3 h-3 bg-slate-500 rounded-full -left-[7px] top-1.5"></div>
+                            <h4 class="text-lg font-medium text-white">มัธยมศึกษาตอนต้น (ม.1 - ม.3)</h4>
+                            <p class="text-slate-400 text-sm mb-1">โรงเรียน หนองบัว</p>
+                            <p class="text-slate-300 mt-2">สายการเรียน: ห้องเรียนพิเศษ วิทยาศาสตร์-คณิตศาสตร์</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Projects Section -->
+    <section id="projects" class="py-12 md:py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- หัวข้อใหญ่ -->
+            <div class="text-center mb-10 md:mb-12">
+                <h2 class="text-3xl font-bold mb-2">แฟ้มสะสมผลงาน</h2>
+                <div class="w-16 h-1 bg-blue-500 mx-auto rounded-full"></div>
+            </div>
+
+            <!-- หัวข้อหมวดที่ 1: การแข่งขัน -->
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-8 pb-3 border-b border-slate-800">
+                <div class="w-10 h-10 rounded-lg bg-purple-600/20 border border-purple-500/40 flex items-center justify-center text-purple-400 shrink-0">
+                    <i class="fas fa-trophy text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-white">ผลงาน : การแข่งขันทางวิชาการ และ กิจกรรมอื่นๆ</h3>
+                    <p class="text-slate-400 text-sm">(กดปุ่มซ้าย-ขวาที่รูปเพื่อดูภาพเพิ่มเติม)</p>
+                </div>
+            </div>
+
+            <!-- Grid แสดงผล 2 ช่องต่อแถว (การ์ดขนาดใหญ่) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
+
+                <!-- ช่องที่ 1 (3 รูป) -->
+                <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] flex flex-col">
+                    <div class="carousel-container relative h-56 sm:h-64 md:h-80 overflow-hidden group">
+                        <div class="carousel-track flex w-full h-full transition-transform duration-500 ease-in-out" style="transform: translateX(0%);">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574430889364947096/IMG_0100.jpg?ex=6b059e87&is=6b044d07&hm=b5d0d3954c4e6b07012f1dfa2bbf61e6cb1a1733e994318532c420cd8d6bb9a0&" alt="การแข่งขัน 1 รูป 3" class="carousel-slide w-full h-full object-contain flex-shrink-0 bg-black/20">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574431238494752848/IMG_0102_1.jpg?ex=6b059eda&is=6b044d5a&hm=d924f29c3bb42325447e78f691d08c45a58225416399cd89057e7c08caadae2d" alt="การแข่งขัน 1 รูป 1" class="carousel-slide w-full h-full object-contain flex-shrink-0 bg-black/20">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574430889008570499/IMG_0443.PNG?ex=6b059e87&is=6b044d07&hm=0e22c9d396bd9a55d48f915e03842363988ecf67022552ae44b9d06a0bd8afb7&" alt="การแข่งขัน 1 รูป 2" class="carousel-slide w-full h-full object-contain flex-shrink-0 bg-black/20">
+                        </div>
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-xs px-2.5 py-1 rounded-full text-slate-300 border border-slate-700">1 / 3</span>
+                        <button onclick="moveSlide(this, -1)" class="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-left"></i></button>
+                        <button onclick="moveSlide(this, 1)" class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="p-5 sm:p-6 md:p-8 flex-grow flex flex-col">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                                <i class="fas fa-globe-asia mr-1"></i> ระดับนานาชาติ
+                            </span>
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                                <i class="fas fa-medal mr-1"></i> รางวัลรองชนะเลิศ อันดับที่1
+                            </span>
+                        </div>
+                        <h4 class="text-lg sm:text-xl md:text-2xl font-bold mb-2 text-white">1. การแข่งขันหุ่นยนต์อัตโนมัติรายการ Global robotics competition 2025 การแข่งขัน Territory Take Down Senior </h4>
+                        <p class="text-slate-400 text-xs sm:text-sm md:text-base flex-grow leading-relaxed">เป็นการเเข่งขันหุ่นยนต์อัตโนมัติ จากการแข่งขันผมได้รับการพัฒนาทักษะด้านการออกแบบ การเขียนโปรแกรมควบคุมหุ่นยนต์ การคิดเชิงวิศวกรรม การแก้ไขปัญหาเฉพาะหน้าภายใต้เวลาที่จำกัด และเป็นการพัฒนาทางด้านวิทยาศาสตร์ เทคโนโลยี คณิตศาสตร์ ซึ่งสามารถนำไปประยุกต์ใช้ในอนาคตได้</p>
+                    </div>
+                </div>
+
+                <!-- ช่องที่ 2 (3 รูป) -->
+                <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] flex flex-col">
+                    <div class="carousel-container relative h-56 sm:h-64 md:h-80 overflow-hidden group">
+                        <div class="carousel-track flex w-full h-full transition-transform duration-500 ease-in-out" style="transform: translateX(0%);">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574433573833015316/Screenshot.jpg?ex=6b05a107&is=6b044f87&hm=ac28c28bd2e3a034295b3dba8632efab77850e1c0c857c1c7d7da3bed0e6571c&" alt="การแข่งขัน 2 รูป 1" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574433574290071643/IMG_2829.jpg?ex=6b05a107&is=6b044f87&hm=a41fb172f34934b01d7d8876cf6bd9542aad058b36b97061fc6d667439ecf759&" alt="การแข่งขัน 2 รูป 2" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574433573446885506/706875107_930682896667695_6139025998718037958_n_1.jpg?ex=6b05a107&is=6b044f87&hm=b1703ea5fcd685c02b4e14f3631a1fda4dee0380939d175be12b1d6624f3bd24&" alt="การแข่งขัน 2 รูป 3" class="carousel-slide w-full h-full object-contain flex-shrink-0 bg-black/20">
+                        </div>
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-xs px-2.5 py-1 rounded-full text-slate-300 border border-slate-700">1 / 3</span>
+                        <button onclick="moveSlide(this, -1)" class="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-left"></i></button>
+                        <button onclick="moveSlide(this, 1)" class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="p-5 sm:p-6 md:p-8 flex-grow flex flex-col">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                                <i class="fas fa-globe-asia mr-1"></i> ระดับนานาชาติ
+                            </span>
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                                <i class="fas fa-medal mr-1"></i> รางวัลเหรียญทองแดง  
+                            </span>
+                        </div>
+                        <h4 class="text-lg sm:text-xl md:text-2xl font-bold mb-2 text-white">2. CPU'4th ASEAN GRAND PRIX YOUTH ROBOTICS AND ESPORTS COMPETITION 2026 หุ่นยนต์อัตโนมัติ logistics Challenge ระดับ มัธยมศึกษา-อุดมศึกษา</h4>
+                        <p class="text-slate-400 text-xs sm:text-sm md:text-base flex-grow leading-relaxed">เป็นการแข่งขันหุ่นยนต์อัตโนมัติจำลองระบบขนส่งในโรงงาน เป็นการพยายามแก้ไขปัญหาเฉพาะหน้า โดยใช้ความรู้ทางวิทยาศาสตร์มาแก้ปัญหา เนื่องจากการแข่งขันนี้ผมออกแบบตัวโครงสร้างของหุ่นยนต์มาไม่เหมาะสมทำให้ความสมดุลในตัวหุ่นยนต์ไม่เป็นไปตามที่คาดหวัง ผมจึงได้นำประสบการณ์ครั้งนี้มาปรับปรุงและพัฒนาตนเอง</p>
+                    </div>
+                </div>
+
+                <!-- ช่องที่ 3 (3 รูป) -->
+                <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] flex flex-col">
+                    <div class="carousel-container relative h-56 sm:h-64 md:h-80 overflow-hidden group">
+                        <div class="carousel-track flex w-full h-full transition-transform duration-500 ease-in-out" style="transform: translateX(0%);">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574436837915623476/IMG_8369.jpg?ex=6b05a411&is=6b045291&hm=7c790a792b8d5e20c74345b992cbc69c15646acdcc796bbe9b1076f553b16093&" alt="การแข่งขัน 3 รูป 1" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574436838511480843/IMG_0444.PNG?ex=6b05a411&is=6b045291&hm=d2eddd7111b992aa3e3b81fd1692ef531f473f010a837e27575cdf7f4209933e&" alt="การแข่งขัน 3 รูป 2" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574436838222069941/IMG_0107.jpg?ex=6b05a411&is=6b045291&hm=15b632fc3abf20d322751f9cc2b6d3a06fbd8948399876ded2be4b30d25da637&" alt="การแข่งขัน 3 รูป 3" class="carousel-slide w-full h-full object-contain flex-shrink-0 bg-black/20">
+                        </div>
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-xs px-2.5 py-1 rounded-full text-slate-300 border border-slate-700">1 / 3</span>
+                        <button onclick="moveSlide(this, -1)" class="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-left"></i></button>
+                        <button onclick="moveSlide(this, 1)" class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="p-5 sm:p-6 md:p-8 flex-grow flex flex-col">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                                <i class="fas fa-map-marked-alt mr-1"></i> ระดับประเทศ
+                            </span>
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                                <i class="fas fa-medal mr-1"></i> รางวัลชนะเลิศ
+                            </span>
+                        </div>
+                        <h4 class="text-lg sm:text-xl md:text-2xl font-bold mb-2 text-white">3. การแข่งขันหุ่นยนต์อัตโนมัติรายการ Robot Realm Robotic Olympiad 2025</h4>
+                        <p class="text-slate-400 text-xs sm:text-sm md:text-base flex-grow leading-relaxed">เป็นการเเข่งขันหุ่นยนต์อัตโนมัติ จากการแข่งขันนี้ ผมได้ฝึกการวิเคราะห์วางแผนในการแข่งขันเพื่อความแม่นยำ การเขียนโปรแกรมคำสั่งเพื่อให้หุ่นยนต์ทำงานตามที่เราวางแผนไว้ และการฝึกประกอบหุ่นเพื่อให้มีน้ำหนักเบาและได้เปรียบ</p>
+                    </div>
+                </div>
+
+                <!-- ช่องที่ 4 (3 รูป) -->
+                <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] flex flex-col">
+                    <div class="carousel-container relative h-56 sm:h-64 md:h-80 overflow-hidden group">
+                        <div class="carousel-track flex w-full h-full transition-transform duration-500 ease-in-out" style="transform: translateX(0%);">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574438679491911680/f9050864-c90b-4315-943c-d316c5674992.jfif?ex=6b05a5c8&is=6b045448&hm=f9858e0096034debb5f03f6fee6e49c00eef9e49b0b80f56373b31b6af2bebb1&" alt="การแข่งขัน 4 รูป 1" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574438679047311551/852446477_2604744150025928_643284229525960720_n_1.jpg?ex=6b05a5c8&is=6b045448&hm=a3ee64042d82880a57b31d730b148a97a4a28b31ebe8284fa15cd4213f7bc9a8&" alt="การแข่งขัน 4 รูป 2" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574438680230232175/IMG_6036_1.jpg?ex=6b05a5c9&is=6b045449&hm=86a55adb7812dccbbc725f76f90f7576366de734fbb7aeaf8f9e26b6f8435a4b&" alt="การแข่งขัน 4 รูป 3" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-xs px-2.5 py-1 rounded-full text-slate-300 border border-slate-700">1 / 3</span>
+                        <button onclick="moveSlide(this, -1)" class="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-left"></i></button>
+                        <button onclick="moveSlide(this, 1)" class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="p-5 sm:p-6 md:p-8 flex-grow flex flex-col">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                                <i class="fas fa-map-marked-alt mr-1"></i> ระดับประเทศ
+                            </span>
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                                <i class="fas fa-medal mr-1"></i> รางวัลรองชนะเลิศอันดับ 3
+                            </span>
+                        </div>
+                        <h4 class="text-lg sm:text-xl md:text-2xl font-bold mb-2 text-white">4. ได้รับรางวัลรองชนะเลิศอันดับที่ 3 โครงการประกวด Young Innovators 2026 โดย คณะครุศาสตร์อุตสาหกรรมและเทคโนโลยี สจล. ภายใต้โครงการ KMITL Future Innovator 2026</h4>
+                        <p class="text-slate-400 text-xs sm:text-sm md:text-base flex-grow leading-relaxed"> จากการแข่งขัน สามารถสร้างและพัฒนาหุ่นยนต์ให้ทำงานตามกติกาการแข่งขันได้ พร้อมทั้งได้ฝึกทักษะด้านการเขียนโปรแกรม การประกอบหุ่นยนต์ การแก้ไขปัญหา และการทำงานเป็นทีมจากการฝึกซ้อมและการแข่งขันจริง ซึ่งสามารถนำประสบการณ์ที่ได้รับจากการแข่งขันไปต่อยอดและพัฒนาความสามารถด้านหุ่นยนต์ในอนาคตได้ จากการแข่งขันในครั้งนี้ได้รับรางวัล รองชนะเลิศอันดับ 3</p>
+                    </div>
+                </div>
+
+                <!-- ช่องที่ 5 (2 รูป) -->
+                <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] flex flex-col">
+                    <div class="carousel-container relative h-56 sm:h-64 md:h-80 overflow-hidden group">
+                        <div class="carousel-track flex w-full h-full transition-transform duration-500 ease-in-out" style="transform: translateX(0%);">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574438274053705828/Screenshot_13.jpg?ex=6b05a568&is=6b0453e8&hm=e68f9b19e48985d2bbf42cbeea0cc67f6b23e5bb09db82f5c5c50cdee4b46814&" alt="การแข่งขัน 5 รูป 1" class="carousel-slide w-full h-full object-contain flex-shrink-0 bg-black/20">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574438274293043210/2.png?ex=6b05a568&is=6b0453e8&hm=027de4a30016dae0695f5c06d8cb820e245b575c6d91bde867a1e5cd05344278&" alt="การแข่งขัน 5 รูป 2" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-xs px-2.5 py-1 rounded-full text-slate-300 border border-slate-700">1 / 2</span>
+                        <button onclick="moveSlide(this, -1)" class="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-left"></i></button>
+                        <button onclick="moveSlide(this, 1)" class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="p-5 sm:p-6 md:p-8 flex-grow flex flex-col">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                                <i class="fas fa-map-marked-alt mr-1"></i> ระดับประเทศ
+                            </span>
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                                <i class="fas fa-medal mr-1"></i> รางวัลเหรียญทอง
+                            </span>
+                        </div>
+                        <h4 class="text-lg sm:text-xl md:text-2xl font-bold mb-2 text-white">5. การแข่งขันโครงงานนวัตกรรมด้านหุ่นยนต์และเทคโนโลยี ภายใต้มหกรรมการแข่งขันหุ่นยนต์นักเรียนไทย ประจำปี 2569</h4>
+                        <p class="text-slate-400 text-xs sm:text-sm md:text-base flex-grow leading-relaxed">โครงงานนี้เป็นโครงงาน เว็บไซต์รายงานและขอความช่วยเหลือแบบ Real Time ในการวางแผนการเดินทางหรือผู้ที่ต้องการความช่วยเหลือ เพื่อไม่ให้เกิดอุบัติเหตุในการเดินทางและยังช่วยให้หน่วยงานต่างๆเข้ามาช่วยเหลือได้อย่างรวดเร็วโดยการใช้ ภาษา HTML ในโครงสร้างหลักของเว็บ เสริมด้วย CSSและJavaScript ในการเชื่อมต่อข้อมูลและออนไลน์เว็บไซต์ จะใช้เป็น netlify ซึ่งมีปัญญาประดิษฐ์ในการช่วยเหลือ</p>
+                    </div>
+                </div>
+
+                <!-- ช่องที่ 6 (2 รูป) -->
+                <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] flex flex-col">
+                    <div class="carousel-container relative h-56 sm:h-64 md:h-80 overflow-hidden group">
+                        <div class="carousel-track flex w-full h-full transition-transform duration-500 ease-in-out" style="transform: translateX(0%);">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574440324896653313/Screenshot_1.jpg?ex=6b05a751&is=6b0455d1&hm=222d09bd797a79a6a8c866c5f212a50f7567386e31ff7654f86ee3b62ccdea1f&" alt="การแข่งขัน 6 รูป 1" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574440325232074802/Screenshot_2.jpg?ex=6b05a751&is=6b0455d1&hm=ee325e4c1587194a4f4d309cde75eafc17f79775f2024699a4a436f99f9c5cc6&" alt="การแข่งขัน 6 รูป 2" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-xs px-2.5 py-1 rounded-full text-slate-300 border border-slate-700">1 / 2</span>
+                        <button onclick="moveSlide(this, -1)" class="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-left"></i></button>
+                        <button onclick="moveSlide(this, 1)" class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="p-5 sm:p-6 md:p-8 flex-grow flex flex-col">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                                <i class="fas fa-map-marked-alt mr-1"></i> ระดับประเทศ
+                            </span>
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                                <i class="fas fa-medal mr-1"></i> รางวัลเหรียญทอง
+                            </span>
+                        </div>
+                        <h4 class="text-lg sm:text-xl md:text-2xl font-bold mb-2 text-white">6. มหกรรมการแข่งขันหุ่นยนต์นักเรียนไทย ประจำปี 2569 การแข่งขันหุ่นยนต์เยาวชน TO BE NUMBER ONE ชิงแชมป์ประเทศไทย ครั้งที่ 3</h4>
+                        <p class="text-slate-400 text-xs sm:text-sm md:text-base flex-grow leading-relaxed">การแข่งขันนี้เป็นการแข่งขันในกติกาจำลองการทำภารกิจขนส่งสินค้า จากการแข่งขัน ผมสามารถนำเทคโนโลยีที่มีในปัจจุบันมาทดลองจำลองการขนส่งสินค้า ซึ่งสามารถนำไปพัฒนาต่อในอนาคตได้ ทั้งการใช้ระบบอัตโนมัติและการใช้เซนเซอร์ ผมได้รับหน้าที่ในการเขียนโปรแกรมและประกอบหุ่นยนต์</p>
+                    </div>
+                </div>
+
+                <!-- ช่องที่ 7 (2 รูป) -->
+                <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] flex flex-col">
+                    <div class="carousel-container relative h-56 sm:h-64 md:h-80 overflow-hidden group">
+                        <div class="carousel-track flex w-full h-full transition-transform duration-500 ease-in-out" style="transform: translateX(0%);">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574440325538255018/Screenshot_3.jpg?ex=6b05a751&is=6b0455d1&hm=44a5c4de372a5dc539460b43ffb0c025eab0e01bd722f16901fa59df2337fdb9&" alt="การแข่งขัน 7 รูป 1" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574440325835923538/IMG_2307.jpg?ex=6b05a751&is=6b0455d1&hm=7f0d816825c4d207169d338ec9ae0f2f4c173b81b8a2b2a74131e3b11605fc8f&" alt="การแข่งขัน 7 รูป 2" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-xs px-2.5 py-1 rounded-full text-slate-300 border border-slate-700">1 / 2</span>
+                        <button onclick="moveSlide(this, -1)" class="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-left"></i></button>
+                        <button onclick="moveSlide(this, 1)" class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="p-5 sm:p-6 md:p-8 flex-grow flex flex-col">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                                <i class="fas fa-map-marked-alt mr-1"></i> ระดับประเทศ
+                            </span>
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                                <i class="fas fa-medal mr-1"></i> รางวัลเหรียญทอง
+                            </span>
+                        </div>
+                        <h4 class="text-lg sm:text-xl md:text-2xl font-bold mb-2 text-white">7. การแข่งขันหุ่นยนต์เยาวชน TO BE NUMBER ONE ชิงแชมป์ประเทศไทย ครั้งที่ 2 ประจำปีการศึกษา 2567 </h4>
+                        <p class="text-slate-400 text-xs sm:text-sm md:text-base flex-grow leading-relaxed">การแข่งขันนี้เป็นการแข่งขันหุ่นยนต์ระบบบังคับมือ จากการแข่งขัน ผมได้ฝึกสมาธิบังคับทิศทาง การเรียนรู้โครงสร้างของหุ่นยนต์ และการต่อวงจรหุ่นยนต์</p>
+                    </div>
+                </div>
+
+                <!-- ช่องที่ 8 (2 รูป) -->
+                <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] flex flex-col">
+                    <div class="carousel-container relative h-56 sm:h-64 md:h-80 overflow-hidden group">
+                        <div class="carousel-track flex w-full h-full transition-transform duration-500 ease-in-out" style="transform: translateX(0%);">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574441768269775008/att.TM8i6rMSW_KtNf9D2cOn8iWPP3RgmwXSYSdo13s7SsM.jpg?ex=6b05a8a9&is=6b045729&hm=f3cd7d77c2e8d338b90fd1017720fce4a3204efc3ef29c15487fd5c4e62d7f61&" alt="การแข่งขัน 8 รูป 1" class="carousel-slide w-full h-full object-contain flex-shrink-0 bg-black/20">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574441768609648640/IMG_5306.jpg?ex=6b05a8a9&is=6b045729&hm=bf67fe73f0ae160acf66aae194e442a2e21aa7c6c003a1867e8d3d3854a25ad3&" alt="การแข่งขัน 8 รูป 2" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-xs px-2.5 py-1 rounded-full text-slate-300 border border-slate-700">1 / 2</span>
+                        <button onclick="moveSlide(this, -1)" class="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-left"></i></button>
+                        <button onclick="moveSlide(this, 1)" class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="p-5 sm:p-6 md:p-8 flex-grow flex flex-col">
+                       <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                                <i class="fas fa-map-marked-alt mr-1"></i> ระดับประเทศ
+                            </span>
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                                <i class="fas fa-medal mr-1"></i> รางวัลเหรียญเงิน
+                            </span>
+                        </div>
+                        <h4 class="text-lg sm:text-xl md:text-2xl font-bold mb-2 text-white">8. การแข่งขันมหกรรมวิชาการ "46ICT สร้างสรรค์นวัตกรรมด้วย Ai" กิจกรรม การแข่งขันพัฒนา Responsive and Applications Web ระดับชั้น ม.4-6</h4>
+                        <p class="text-slate-400 text-xs sm:text-sm md:text-base flex-grow leading-relaxed">รายละเอียดการแข่งขัน บทบาทหน้าที่ และสิ่งที่ได้เรียนรู้</p>
+                    </div>
+                </div>
+
+                <!-- ช่องที่ 9 (2 รูป) -->
+                <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] flex flex-col">
+                    <div class="carousel-container relative h-56 sm:h-64 md:h-80 overflow-hidden group">
+                        <div class="carousel-track flex w-full h-full transition-transform duration-500 ease-in-out" style="transform: translateX(0%);">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574443511707738182/Screenshot_4.jpg?ex=6b05aa48&is=6b0458c8&hm=f5d22305ab5225f630667b677741d81168405d0801edae50d7b7c97325901b72&" alt="การแข่งขัน 9 รูป 1" class="carousel-slide w-full h-full object-contain flex-shrink-0 bg-black/20">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574443511195902075/6.png?ex=6b05aa48&is=6b0458c8&hm=d41a643b9dcf7f4952d43c9cb2d4ad460dd0ac8c0326f55f38b511cdb52b644a&" alt="การแข่งขัน 9 รูป 2" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-xs px-2.5 py-1 rounded-full text-slate-300 border border-slate-700">1 / 2</span>
+                        <button onclick="moveSlide(this, -1)" class="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-left"></i></button>
+                        <button onclick="moveSlide(this, 1)" class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="p-5 sm:p-6 md:p-8 flex-grow flex flex-col">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                                <i class="fas fa-map-marked-alt mr-1"></i> ระดับประเทศ
+                            </span>
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                                <i class="fas fa-medal mr-1"></i> รางวัล Best Technique
+                            </span>
+                        </div>
+                        <h4 class="text-lg sm:text-xl md:text-2xl font-bold mb-2 text-white">9. การแข่งขันหุ่นยนต์ทำภารกิจ ขนส่งลำเลียงของ 3D รายการ Carry Express Pro (Open) งานมหกรรมสนามเด็กเล่นหุ่นยนต์ สพฐ. 2026</h4>
+                        <p class="text-slate-400 text-xs sm:text-sm md:text-base flex-grow leading-relaxed">จากการแข่งขันนี้ ผมได้พัฒนาการวางแผนอย่างเป็นระบบ การแก้ไขปัญหาเฉพาะหน้า และได้พัฒนาความสามารถของตัวเองเพื่อนำไปต่อยอดต่อไป</p>
+                    </div>
+                </div>
+
+                <!-- ช่องที่ 10 (2 รูป) -->
+                <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] flex flex-col">
+                    <div class="carousel-container relative h-56 sm:h-64 md:h-80 overflow-hidden group">
+                        <div class="carousel-track flex w-full h-full transition-transform duration-500 ease-in-out" style="transform: translateX(0%);">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574444267118526622/att.FSMtsChkVhIGRQ9kHBjWNBO6x1Bu6eaPIHVDfBHHIgo.jpg?ex=6b05aafd&is=6b04597d&hm=0915478db89c6ab2f53ca328985a793d5988e0f2bd6b370585a474a516d17e34&" alt="การแข่งขัน 10 รูป 1" class="carousel-slide w-full h-full object-contain flex-shrink-0 bg-black/20">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574444267718582402/IMG_9059.jpg?ex=6b05aafd&is=6b04597d&hm=d9d1f3688638b3fb9316db8d4e36fbbcd1fa6fac467400be236ee1883c6d5c2a&" alt="การแข่งขัน 10 รูป 2" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-xs px-2.5 py-1 rounded-full text-slate-300 border border-slate-700">1 / 2</span>
+                        <button onclick="moveSlide(this, -1)" class="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-left"></i></button>
+                        <button onclick="moveSlide(this, 1)" class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="p-5 sm:p-6 md:p-8 flex-grow flex flex-col">
+                       <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                                <i class="fas fa-map-marked-alt mr-1"></i> ระดับประเทศ
+                            </span>
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                                <i class="fas fa-medal mr-1"></i> รางวัล มุ่งมั่นและพยายาม
+                            </span>
+                        </div>
+                        <h4 class="text-lg sm:text-xl md:text-2xl font-bold mb-2 text-white">10. การแข่งขันหุ่นยนต์ รายการ Logistic ประจำปี 2568 งานมหกรรมสนามเด็กเล่นหุ่นยนต์ SK Robotics Playground 2025</h4>
+                        <p class="text-slate-400 text-xs sm:text-sm md:text-base flex-grow leading-relaxed">สิ่งที่ได้รับ ได้วิธีการแก้ปัญหาเฉพาะหน้าเนื่องจากตัวหุ่นยนต์มีปัญหา การฝึกฝนต่ออุปกรณ์ที่เสียหายการฝกฝนความมุ่งมั่นไม่ยอมแพ้ตั้งแต่เริ่มจนจบการแข่งขัน</p>
+                    </div>
+                </div>
+
+                <!-- ช่องที่ 11 (2 รูป) -->
+                <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] flex flex-col">
+                    <div class="carousel-container relative h-56 sm:h-64 md:h-80 overflow-hidden group">
+                        <div class="carousel-track flex w-full h-full transition-transform duration-500 ease-in-out" style="transform: translateX(0%);">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574445193568976996/IMG_5298.jpg?ex=6b05abd9&is=6b045a59&hm=914166ee90180e4fdbee340f922efdd1a3efa302c8841f7dc03c3f7d4988d6a4&" alt="การแข่งขัน 11 รูป 1" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                            <img src="https://cdn.discordapp.com/attachments/1366393896023883890/1574445194160504933/IMG_1912.jpg?ex=6b05abda&is=6b045a5a&hm=37cdc101f4082413527f50699179d1de0a25bde33bd2f94531938cc52d714b9e&" alt="การแข่งขัน 11 รูป 2" class="carousel-slide w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-xs px-2.5 py-1 rounded-full text-slate-300 border border-slate-700">1 / 2</span>
+                        <button onclick="moveSlide(this, -1)" class="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-left"></i></button>
+                        <button onclick="moveSlide(this, 1)" class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-purple-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all z-10"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="p-5 sm:p-6 md:p-8 flex-grow flex flex-col">
+                          <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                                <i class="fas fa-map-marked-alt mr-1"></i> ระดับเขตพื้นที่การศึกษา
+                            </span>
+                            <span class="px-3 py-1 rounded-full text-[10px] sm:text-xs font-medium bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                                <i class="fas fa-medal mr-1"></i> รางวัล รองชนะเลิศอันดับที่ 1
+                            </span>
+                        </div>
+                        <h4 class="text-lg sm:text-xl md:text-2xl font-bold mb-2 text-white">11. กิจกรรมการประกวดโครงงานคอมพิวเตอร์ประเภทซอฟแวร์ งานศิลปหัตถกรรมนักเรียน ระดับเขตพื้นที่การศึกษา ครั้งที่72 ปีการศึกษา 2567</h4>
+                        <p class="text-slate-400 text-xs sm:text-sm md:text-base flex-grow leading-relaxed">โครงงานที่นำไปแข่งขันคือ botanical-NB line chat bot เป็นการช่วยค้นหาข้อมูลของต้นไม้โดยจำแนกลักษณะใบ โดยต้นไม้แต่ละต้นเราจะบอกทั้ง ชื่อ วงศ์ สกุล สปีชีส์ต้นไม้ ข้อมูลต้นไม้รวมถึงประโยชน์ทางการแพทย์</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+    </section>
+
+    <!-- 5. Contact Section -->
+    <section id="contact" class="py-12 md:py-20 bg-slate-950 border-t border-slate-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-6">ช่องทางการติดต่อ</h2>
+            <p class="text-slate-400 mb-10">หากอาจารย์หรือคณะกรรมการท่านใดสนใจในผลงานของผม สามารถติดต่อได้ตามช่องทางด้านล่างนี้ครับ</p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mb-12">
+                <a href="mailto:your.email@example.com" class="flex items-center justify-center gap-3 px-6 py-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition border border-slate-700 hover:border-purple-500">
+                    <i class="fas fa-envelope text-purple-400 text-xl"></i>
+                    <span>ไม่เปิดเผย</span>
+                </a>
+                <a href="tel:0812345678" class="flex items-center justify-center gap-3 px-6 py-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition border border-slate-700 hover:border-blue-400">
+                    <i class="fas fa-phone-alt text-blue-400 text-xl"></i>
+                    <span>ไม่เปิดเผย</span>
+                </a>
+            </div>
+        </div>
+        
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-6 text-center border-t border-slate-900 text-slate-500 text-sm">
+        <p>&copy;  วุฒิพัฒน์ คำทา</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // ระบบเลื่อนรูป (Carousel)
+        function moveSlide(button, direction) {
+            const container = button.closest('.carousel-container');
+            const track = container.querySelector('.carousel-track');
+            const slides = track.querySelectorAll('.carousel-slide');
+            const counter = container.querySelector('span');
+            
+            let currentTransform = track.style.transform;
+            let currentIndex = 0;
+            
+            if (currentTransform) {
+                currentIndex = Math.round(Math.abs(parseInt(currentTransform.replace(/[^\d-]/g, '')) / 100));
+            }
+            
+            currentIndex += direction;
+            
+            if (currentIndex < 0) {
+                currentIndex = slides.length - 1;
+            } else if (currentIndex >= slides.length) {
+                currentIndex = 0;
+            }
+            
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            if (counter) {
+                counter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            }
+        }
+
+        // ระบบ Mobile Menu 
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+
+</body>
+</html>
